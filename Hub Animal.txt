@@ -1,0 +1,102 @@
+﻿Concept
+Hub Animal est le coffre-fort numérique universel qui centralise toute la vie administrative, médicale et quotidienne d'un animal dans un dossier unique et intelligent.
+L'innovation clé : un QR code temporaire généré par le propriétaire avant chaque consultation permet au vétérinaire (avec ou sans compte) d'accéder instantanément au dossier, de consulter l'historique complet et de mettre à jour directement les informations médicales (poids, diagnostic, traitement, ordonnance).
+Gratuit pour tous les vétérinaires. Le vétérinaire sans compte reçoit automatiquement par e-mail une copie de ce qu'il a saisi. Le propriétaire garde le contrôle total du dossier.
+Médaille QR : en cas de perte, scan du médaillon affiche nom de l'animal, contact propriétaire, allergies critiques, traitements importants.
+Problème résolu
+Les informations d'un animal sont dispersées partout : carnet papier, photos d'ordonnances, notes WhatsApp, factures… Le propriétaire perd du temps, oublie les vaccins, et doit tout réexpliquer au vétérinaire à chaque visite. Le vétérinaire n'a pas l'historique complet sous les yeux. Résultat : erreurs médicales, stress, perte de temps.
+Hub Animal = 1 dossier unique, vivant, partagé et intelligent.
+Marché et chiffres
+France 2025 : 79 millions d'animaux de compagnie, 61% des Français possèdent au moins un animal, 55% ont un chien et/ou un chat, 9,9M chiens, 16,7M chats.
+Sources :
+* FACCO 2025 : https://www.facco.fr/chiffres-cles/les-chiffres-de-la-population-animale-2/
+* GoodFlair stats 2025 : https://goodflair.com/statistiques/
+* Le Point Vétérinaire baromètre FACCO : https://www.lepointveterinaire.fr/actualites/actualites-professionnelles/barometre-facco-2025-79-millions-d-animaux-de-compagnie
+Cible
+Propriétaires responsables (chiens, chats, NAC) - 25-55 ans, urbains, connectés, 61% des Français.
+Vétérinaires = utilisateurs gratuits clés qui enrichissent le dossier.
+Partenaires = cible business (assurance, pet-sitting, nutrition, pharmacies).
+Benchmark concurrentiel 
+App
+	Forces
+	Limites
+	Hub Animal >
+	11Pets
+	Carnet détaillé, multi-animaux, cloud, export PDF
+	Partage véto via export seulement, pas d'édition live
+	QR édition + e-mail récap véto
+	Zoovet
+	Carnet santé numérique gratuit, rappels, partage avec pros, suivi poids, agenda, accès véto
+	Plus orienté carnet santé connecté que hub universel de vie (budget, partenaires, QR urgence, OCR)
+	QR temporaire universel + e-mail récap + budget + partenaires
+	VetCard
+	Connexion propriétaire/véto, échange infos
+	Focalisé sur relation, pas hub complet (rappels, budget, documents, médaillon QR)
+	Dossier vie complète + QR consultation/urgence
+	Vet Santé/DogCat
+	Simple, rappels basiques
+	Pas de collaboration véto
+	Véto contributeur actif + alertes intelligentes
+	Mon Compagnon
+	QR urgence, alertes
+	Pas de dossier médical collaboratif
+	QR consultation + édition véto + OCR
+	Viabilité économique
+Marché pet-tech FR : croissance +18%/an. ARR réaliste : 10k utilisateurs gratuits → 2k premium (20%) × 50€/an = 100k€ + 50k€ affiliation partenaires.
+source: https://www.intotheminds.com/blog/pet-tech/
+https://www.reportsinsights.com/fr/industry-forecast/march%C3%A9-des-technologies-pour-animaux-de-compagnie-704963
+
+
+Business model
+
+
+FREEMIUM PROPRIO
+├── Gratuit : 1 animal, rappels, QR ponctuel , 2 OCR
+└── Premium 4,99€/mois : illimité, OCR illimité, alertes IA, budget
+
+
+PARTENAIRES
+├── assurance (après gros frais véto)
+├── pet-sitting (avant vacances)
+├── Leads pharmacies/nutrition
+Positionnement
+“Le dossier de vie de l’animal, partagé gratuitement avec le vétérinaire, enrichi automatiquement, et relié aux services utiles au bon moment.”
+Ni logiciel véto, ni simple carnet, mais hub propriétaire-centré qui transforme chaque consultation en valeur ajoutée (dossier enrichi + lead partenaire).
+Fonctionnalités clés
+DOSSIER CENTRAL
+* Fiche identité complète
+* Carnet santé (vaccins, traitements, allergies)
+* Documents (ordonnances, analyses)
+* Historique chronologique
+* Gestion dépenses/budget
+* Timeline vie complète
+QR CONSULTATION (innovation)
+* QR temporaire généré par proprio
+* Accès instantané véto (compte ou invité)
+* Mise à jour live : diagnostic, traitement, ordonnance
+* E-mail récap automatique au véto invité
+QR URGENCE / MÉDAILLON
+* Médaillon QR Animal perdu
+* Affichage : nom, contact, allergies, traitements critiques
+* Notification propriétaire si scan
+DOCUMENTS INTELLIGENTS
+* Photo → OCR ordonnance/facture
+* Classement auto
+* Export PDF
+ALERTES INTELLIGENTES
+* Rappels vaccins/traitements
+* Perte/prise poids anormale
+* Consultation manquée
+* Score santé global
+PARTAGE
+* Famille, pet-sitter, pension
+* Permissions granulaires
+PREMIUM
+* Animaux illimités
+* OCR illimité
+* Alertes IA avancées
+* Traduction carnet (voyage)
+PARTENAIRES
+* Assurance après gros frais
+* Pet-sitting avant vacances
+* Nutrition selon profil

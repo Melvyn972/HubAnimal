@@ -1,0 +1,26 @@
+{
+  "name": "hubanimal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -k -n frontend,backend \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
+    "build": "npm run build --prefix frontend",
+    "start": "npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Melvyn972/HubAnimal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Melvyn972/HubAnimal/issues"
+  },
+  "homepage": "https://github.com/Melvyn972/HubAnimal#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
