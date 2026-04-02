@@ -1,15 +1,29 @@
-const path = require("path");
-const fs = require("fs/promises");
-const express = require("express");
-const cors = require("cors");
-const { nanoid } = require("nanoid");
+import path from "node:path";
+import fs from "node:fs/promises";
+import express from "express";
+import cors from "cors";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
 
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3001;
-const DB_PATH = path.join(__dirname, "data", "db.json");
+const IS_VERCEL = Boolean(process.env.VERCEL || process.env.VERCEL_URL);
+const DB_PATH = IS_VERCEL
+  ? path.join("/tmp", "hubanimal-db.json")
+  : path.join(__dirname, "data", "db.json");
+
+// `nanoid` est ESM-only ; en Vercel la compilation peut transformer le module.
+// On utilise un import dynamique pour éviter `ERR_REQUIRE_ESM`.
+const nanoidFnPromise = import("nanoid").then((m) => m.nanoid);
+async function makeNanoId(size) {
+  const nanoidFn = await nanoidFnPromise;
+  return typeof size === "number" ? nanoidFn(size) : nanoidFn();
+}
 
 let writeQueue = Promise.resolve();
 
@@ -27,6 +41,8 @@ async function readDb() {
 }
 
 async function writeDb(db) {
+  const dir = path.dirname(DB_PATH);
+  await fs.mkdir(dir, { recursive: true });
   const tmpPath = DB_PATH + ".tmp";
   await fs.writeFile(tmpPath, JSON.stringify(db, null, 2), "utf8");
   await fs.rename(tmpPath, DB_PATH);
@@ -71,7 +87,7 @@ app.post("/api/patients", async (req, res) => {
 
     const patient = await withDbMutator(async (db) => {
       const newPatient = {
-        id: nanoid(),
+        id: await makeNanoId(),
         name,
         species,
         dateOfBirth: dateOfBirth || null,
@@ -122,7 +138,7 @@ app.post("/api/consultation/tokens", async (req, res) => {
         throw err;
       }
 
-      const token = nanoid(18);
+      const token = await makeNanoId(18);
       const now = Date.now();
       const expiresAt = new Date(now + minutes * 60 * 1000).toISOString();
 
@@ -209,7 +225,7 @@ app.post("/api/consultation/submit", async (req, res) => {
       }
 
       const timelineEntry = {
-        id: nanoid(),
+        id: await makeNanoId(),
         createdAt: new Date().toISOString(),
         date: entry && entry.date ? entry.date : new Date().toISOString().slice(0, 10),
         weight: entry && entry.weight ? Number(entry.weight) : null,
