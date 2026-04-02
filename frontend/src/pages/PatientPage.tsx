@@ -192,7 +192,7 @@ export default function PatientPage() {
             ) : null}
 
             <button
-              className="cursor-pointer rounded-lg border border-border bg-transparent px-3 py-2.5 text-fg transition-colors hover:border-accent-border hover:bg-accent-bg disabled:cursor-not-allowed disabled:opacity-60"
+              className="cursor-pointer rounded-full bg-accent px-6 py-2.5 text-white transition-colors hover:border-accent-border hover:bg-accent-bg disabled:cursor-not-allowed disabled:opacity-60"
               type="button"
               onClick={onGenerateQr}
               disabled={qrBusy}
@@ -208,7 +208,7 @@ export default function PatientPage() {
 
             {qrDataUrl ? (
               <div className="mt-3.5">
-                <div className="flex flex-wrap items-start gap-4">
+                <div className="flex flex-wrap w-full justify-center items-start gap-4">
                   <img
                     className="h-60 w-60 border border-border bg-white"
                     src={qrDataUrl}
