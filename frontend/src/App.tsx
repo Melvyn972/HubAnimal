@@ -8,8 +8,8 @@ export default function App() {
     <HashRouter>
       <div className="min-h-svh">
         <header className="mb-4 flex items-center justify-between gap-3 py-4">
-          <div className="text-3xl font-bold text-accent flex gap-2"><svg fill="#2d6a4f" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns: xlink="http://www.w3.org/1999/xlink"
-            width="32px" height="32px" viewBox="0 0 25 25" xml: space="preserve">
+          <div className="text-3xl font-bold text-accent flex gap-2"><svg fill="#2d6a4f" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
+            width="32px" height="32px" viewBox="0 0 25 25" xmlSpace="preserve">
             <g>
               <g>
                 <circle cx="16.34" cy="13.476" r="0.526" />
