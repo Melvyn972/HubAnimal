@@ -89,61 +89,70 @@ export default function ConsultationPage() {
 
   return (
     <div>
-      <div className="pageTitle">Consultation (QR)</div>
+      <div className="mb-3 text-base font-[650] text-fg">Consultation (QR)</div>
 
       {tokenHint ? (
-        <div className="muted" style={{ marginBottom: 12 }}>
-          Token : <code>{tokenHint}</code>
+        <div className="mb-3 text-[13px] text-muted">
+          Token :{' '}
+          <code className="rounded-md bg-code-bg px-1.5 py-0.5 font-mono text-[13px] text-fg">
+            {tokenHint}
+          </code>
         </div>
       ) : null}
 
-      {busy ? <div className="muted" style={{ marginBottom: 12 }}>Chargement...</div> : null}
+      {busy ? <div className="mb-3 text-[13px] text-muted">Chargement...</div> : null}
 
       {error ? (
-        <div className="alert" style={{ marginBottom: 12 }}>
+        <div className="mb-3 rounded-[10px] border border-accent-border bg-accent-bg p-3 text-fg">
           {error}
         </div>
       ) : null}
 
       {patient ? (
-        <div className="card">
-          <div style={{ fontWeight: 650, color: 'var(--text-h)', marginBottom: 8 }}>
+        <div className="rounded-[10px] border border-border bg-transparent p-4">
+          <div className="mb-2 font-[650] text-fg">
             {patient.name} ({patient.species})
           </div>
-          <div className="muted" style={{ marginBottom: 12 }}>
+          <div className="mb-3 text-[13px] text-muted">
             Allergies critiques : {patient.allergiesCritical || '—'}
           </div>
           {expiresAt ? (
-            <div className="muted" style={{ marginBottom: 12 }}>
+            <div className="mb-3 text-[13px] text-muted">
               Token valable jusqu’au : {new Date(expiresAt).toLocaleString()}
             </div>
           ) : null}
 
-          <div className="hr" />
+          <div className="my-4 border-t border-border" />
 
           {submitted ? (
             <div>
-              <div style={{ fontWeight: 650, color: 'var(--text-h)', marginBottom: 8 }}>
-                Mise à jour effectuée
-              </div>
-              <div className="muted" style={{ marginBottom: 14 }}>
-                L’entrée a été enregistrée dans le carnet.
-              </div>
-              <button className="button" type="button" onClick={() => navigate('/')}>
+              <div className="mb-2 font-[650] text-fg">Mise à jour effectuée</div>
+              <div className="mb-3.5 text-[13px] text-muted">L’entrée a été enregistrée dans le carnet.</div>
+              <button
+                className="cursor-pointer rounded-lg border border-border bg-transparent px-3 py-2.5 text-fg transition-colors hover:border-accent-border hover:bg-accent-bg disabled:cursor-not-allowed disabled:opacity-60"
+                type="button"
+                onClick={() => navigate('/')}
+              >
                 Retour à l’accueil
               </button>
             </div>
           ) : (
             <form onSubmit={onSubmit}>
-              <div className="grid2">
-                <div className="field">
-                  <div className="label">Date</div>
-                  <input className="input" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-                </div>
-                <div className="field">
-                  <div className="label">Poids (kg, optionnel)</div>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                <div className="flex flex-col gap-1.5">
+                  <div className="text-[13px] text-muted">Date</div>
                   <input
-                    className="input"
+                    className="rounded-lg border border-border bg-transparent px-2.5 py-2.5 font-[inherit] text-inherit"
+                    type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <div className="text-[13px] text-muted">Poids (kg, optionnel)</div>
+                  <input
+                    className="rounded-lg border border-border bg-transparent px-2.5 py-2.5 font-[inherit] text-inherit"
                     type="number"
                     inputMode="decimal"
                     step="0.1"
@@ -154,33 +163,64 @@ export default function ConsultationPage() {
                 </div>
               </div>
 
-              <div className="field" style={{ marginTop: 12 }}>
-                <div className="label">Diagnostic</div>
-                <textarea value={diagnosis} onChange={(e) => setDiagnosis(e.target.value)} required />
+              <div className="mt-3 flex flex-col gap-1.5">
+                <div className="text-[13px] text-muted">Diagnostic</div>
+                <textarea
+                  className="min-h-[90px] resize-y rounded-lg border border-border bg-transparent px-2.5 py-2.5 font-[inherit] text-inherit"
+                  value={diagnosis}
+                  onChange={(e) => setDiagnosis(e.target.value)}
+                  required
+                />
               </div>
 
-              <div className="field" style={{ marginTop: 12 }}>
-                <div className="label">Traitement</div>
-                <textarea value={treatment} onChange={(e) => setTreatment(e.target.value)} required />
+              <div className="mt-3 flex flex-col gap-1.5">
+                <div className="text-[13px] text-muted">Traitement</div>
+                <textarea
+                  className="min-h-[90px] resize-y rounded-lg border border-border bg-transparent px-2.5 py-2.5 font-[inherit] text-inherit"
+                  value={treatment}
+                  onChange={(e) => setTreatment(e.target.value)}
+                  required
+                />
               </div>
 
-              <div className="field" style={{ marginTop: 12 }}>
-                <div className="label">Ordonnance (texte)</div>
-                <textarea value={prescriptionText} onChange={(e) => setPrescriptionText(e.target.value)} />
+              <div className="mt-3 flex flex-col gap-1.5">
+                <div className="text-[13px] text-muted">Ordonnance (texte)</div>
+                <textarea
+                  className="min-h-[90px] resize-y rounded-lg border border-border bg-transparent px-2.5 py-2.5 font-[inherit] text-inherit"
+                  value={prescriptionText}
+                  onChange={(e) => setPrescriptionText(e.target.value)}
+                />
               </div>
 
-              <div className="field" style={{ marginTop: 12 }}>
-                <div className="label">Notes (optionnel)</div>
-                <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
+              <div className="mt-3 flex flex-col gap-1.5">
+                <div className="text-[13px] text-muted">Notes (optionnel)</div>
+                <textarea
+                  className="min-h-[90px] resize-y rounded-lg border border-border bg-transparent px-2.5 py-2.5 font-[inherit] text-inherit"
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                />
               </div>
 
-              {error ? <div className="alert" style={{ marginTop: 12 }}>{error}</div> : null}
+              {error ? (
+                <div className="mt-3 rounded-[10px] border border-accent-border bg-accent-bg p-3 text-fg">
+                  {error}
+                </div>
+              ) : null}
 
-              <div style={{ marginTop: 14, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                <button className="button" type="submit" disabled={busy}>
+              <div className="mt-3.5 flex flex-wrap gap-2.5">
+                <button
+                  className="cursor-pointer rounded-lg border border-border bg-transparent px-3 py-2.5 text-fg transition-colors hover:border-accent-border hover:bg-accent-bg disabled:cursor-not-allowed disabled:opacity-60"
+                  type="submit"
+                  disabled={busy}
+                >
                   {busy ? 'Enregistrement...' : 'Enregistrer dans le carnet'}
                 </button>
-                <button className="button" type="button" disabled={busy} onClick={() => navigate('/')}>
+                <button
+                  className="cursor-pointer rounded-lg border border-border bg-transparent px-3 py-2.5 text-fg transition-colors hover:border-accent-border hover:bg-accent-bg disabled:cursor-not-allowed disabled:opacity-60"
+                  type="button"
+                  disabled={busy}
+                  onClick={() => navigate('/')}
+                >
                   Quitter
                 </button>
               </div>
@@ -191,4 +231,3 @@ export default function ConsultationPage() {
     </div>
   )
 }
-
