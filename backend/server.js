@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import express from "express";
 import cors from "cors";
 import { fileURLToPath } from "node:url";
+import { randomBytes } from "node:crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,10 +18,10 @@ const DB_PATH = IS_VERCEL
   ? path.join("/tmp", "hubanimal-db.json")
   : path.join(__dirname, "data", "db.json");
 
-const nanoidFnPromise = import("nanoid").then((m) => m.nanoid);
-async function makeNanoId(size) {
-  const nanoidFn = await nanoidFnPromise;
-  return typeof size === "number" ? nanoidFn(size) : nanoidFn();
+function makeId(length = 12) {
+  // base64url ne contient pas de caractères problématiques pour une URL.
+  const bytesNeeded = Math.ceil((length * 3) / 4);
+  return randomBytes(bytesNeeded).toString("base64url").slice(0, length);
 }
 
 let writeQueue = Promise.resolve();
@@ -85,7 +86,7 @@ app.post("/api/patients", async (req, res) => {
 
     const patient = await withDbMutator(async (db) => {
       const newPatient = {
-        id: await makeNanoId(),
+        id: makeId(12),
         name,
         species,
         dateOfBirth: dateOfBirth || null,
@@ -136,7 +137,7 @@ app.post("/api/consultation/tokens", async (req, res) => {
         throw err;
       }
 
-      const token = await makeNanoId(18);
+      const token = makeId(18);
       const now = Date.now();
       const expiresAt = new Date(now + minutes * 60 * 1000).toISOString();
 
@@ -223,7 +224,7 @@ app.post("/api/consultation/submit", async (req, res) => {
       }
 
       const timelineEntry = {
-        id: await makeNanoId(),
+        id: makeId(12),
         createdAt: new Date().toISOString(),
         date: entry && entry.date ? entry.date : new Date().toISOString().slice(0, 10),
         weight: entry && entry.weight ? Number(entry.weight) : null,
