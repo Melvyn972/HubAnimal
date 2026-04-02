@@ -17,8 +17,6 @@ const DB_PATH = IS_VERCEL
   ? path.join("/tmp", "hubanimal-db.json")
   : path.join(__dirname, "data", "db.json");
 
-// `nanoid` est ESM-only ; en Vercel la compilation peut transformer le module.
-// On utilise un import dynamique pour éviter `ERR_REQUIRE_ESM`.
 const nanoidFnPromise = import("nanoid").then((m) => m.nanoid);
 async function makeNanoId(size) {
   const nanoidFn = await nanoidFnPromise;
