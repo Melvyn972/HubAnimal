@@ -65,11 +65,11 @@ function findToken(db, token) {
   return db.tokens.find((t) => t.token === token);
 }
 
-app.get("/api/health", (_req, res) => {
+function healthHandler(_req, res) {
   res.json({ ok: true });
-});
+}
 
-app.post("/api/patients", async (req, res) => {
+async function createPatientHandler(req, res) {
   try {
     const {
       name,
@@ -104,9 +104,9 @@ app.post("/api/patients", async (req, res) => {
   } catch (err) {
     return res.status(500).json({ ok: false, error: "server_error" });
   }
-});
+}
 
-app.get("/api/patients/:patientId", async (req, res) => {
+async function getPatientHandler(req, res) {
   const patientId = req.params.patientId;
   const db = await readDb();
   const patient = findPatient(db, patientId);
@@ -114,9 +114,9 @@ app.get("/api/patients/:patientId", async (req, res) => {
     return res.status(404).json({ ok: false, error: "patient_not_found" });
   }
   return res.json({ ok: true, patient });
-});
+}
 
-app.post("/api/consultation/tokens", async (req, res) => {
+async function createTokenHandler(req, res) {
   try {
     const { patientId, expiresInMinutes } = req.body || {};
     const minutes = Number(expiresInMinutes || 15);
@@ -157,9 +157,25 @@ app.post("/api/consultation/tokens", async (req, res) => {
     const statusCode = err && err.statusCode ? err.statusCode : 500;
     return res.status(statusCode).json({ ok: false, error: err.message || "server_error" });
   }
-});
+}
 
-app.get("/api/consultation/validate", async (req, res) => {
+// Deux possibilités existent selon la façon dont Vercel “monte” le routePrefix :
+// - soit le backend reçoit /api/...
+// - soit le backend reçoit directement /...
+// On gère les deux pour éviter les 404 de routage.
+app.get("/api/health", healthHandler);
+app.get("/health", healthHandler);
+
+app.post("/api/patients", createPatientHandler);
+app.post("/patients", createPatientHandler);
+
+app.get("/api/patients/:patientId", getPatientHandler);
+app.get("/patients/:patientId", getPatientHandler);
+
+app.post("/api/consultation/tokens", createTokenHandler);
+app.post("/consultation/tokens", createTokenHandler);
+
+async function validateTokenHandler(req, res) {
   const token = req.query.token;
   if (!token || typeof token !== "string") {
     return res.status(400).json({ ok: false, error: "token_required" });
@@ -189,9 +205,9 @@ app.get("/api/consultation/validate", async (req, res) => {
     token: { token: tokenRow.token, expiresAt: tokenRow.expiresAt },
     patient,
   });
-});
+}
 
-app.post("/api/consultation/submit", async (req, res) => {
+async function submitConsultationHandler(req, res) {
   try {
     const { token, entry } = req.body || {};
     if (!token || typeof token !== "string") {
@@ -245,7 +261,13 @@ app.post("/api/consultation/submit", async (req, res) => {
     const statusCode = err && err.statusCode ? err.statusCode : 500;
     return res.status(statusCode).json({ ok: false, error: err.message || "server_error" });
   }
-});
+}
+
+app.get("/api/consultation/validate", validateTokenHandler);
+app.get("/consultation/validate", validateTokenHandler);
+
+app.post("/api/consultation/submit", submitConsultationHandler);
+app.post("/consultation/submit", submitConsultationHandler);
 
 app.listen(PORT, "0.0.0.0", () => {
   // Simple log for local testing
