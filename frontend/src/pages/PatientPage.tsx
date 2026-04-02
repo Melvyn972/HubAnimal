@@ -87,100 +87,86 @@ export default function PatientPage() {
 
   return (
     <div>
-      <div className="pageTitle">Carnet</div>
+      <div className="mb-3 text-base font-[650] text-fg">Carnet</div>
 
-      {busy ? <div className="muted">Chargement...</div> : null}
+      {busy ? <div className="text-[13px] text-muted">Chargement...</div> : null}
 
-      {error ? <div className="alert">{error}</div> : null}
+      {error ? (
+        <div className="rounded-[10px] border border-accent-border bg-accent-bg p-3 text-fg">
+          {error}
+        </div>
+      ) : null}
 
       {patient ? (
         <div>
-          <div className="card" style={{ marginBottom: 16 }}>
-            <div style={{ fontWeight: 650, color: 'var(--text-h)', marginBottom: 8 }}>
+          <div className="mb-4 rounded-[10px] border border-border bg-transparent p-4">
+            <div className="mb-2 font-[650] text-fg">
               {patient.name} ({patient.species})
             </div>
-            <div className="muted" style={{ marginBottom: 10 }}>
+            <div className="mb-2.5 text-[13px] text-muted">
               Date de naissance : {patient.dateOfBirth || '—'}
             </div>
-            <div className="hr" />
-            <div className="grid2">
+            <div className="my-4 border-t border-border" />
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               <div>
-                <div className="muted" style={{ marginBottom: 6 }}>
-                  Allergies critiques
-                </div>
+                <div className="mb-1.5 text-[13px] text-muted">Allergies critiques</div>
                 <div>{patient.allergiesCritical || '—'}</div>
               </div>
               <div>
-                <div className="muted" style={{ marginBottom: 6 }}>
-                  Traitements critiques
-                </div>
+                <div className="mb-1.5 text-[13px] text-muted">Traitements critiques</div>
                 <div>{patient.treatmentsCritiques || '—'}</div>
               </div>
             </div>
-            <div className="hr" />
+            <div className="my-4 border-t border-border" />
             <div>
-              <div className="muted" style={{ marginBottom: 6 }}>
-                Contact propriétaire
-              </div>
+              <div className="mb-1.5 text-[13px] text-muted">Contact propriétaire</div>
               <div>{patient.ownerContact || '—'}</div>
             </div>
           </div>
 
-          <div className="card" style={{ marginBottom: 16 }}>
-            <div style={{ fontWeight: 650, color: 'var(--text-h)', marginBottom: 8 }}>
-              Historique
-            </div>
+          <div className="mb-4 rounded-[10px] border border-border bg-transparent p-4">
+            <div className="mb-2 font-[650] text-fg">Historique</div>
 
             {patient.timelineEntries.length ? (
               patient.timelineEntries.map((t) => (
-                <div key={t.id} className="timelineItem">
-                  <div className="timelineMeta">
+                <div key={t.id} className="mb-2.5 rounded-[10px] border border-border p-3">
+                  <div className="mb-1.5 text-[13px] text-muted">
                     {t.date} • poids : {t.weight === null ? '—' : `${t.weight} kg`}
                   </div>
-                  <div style={{ fontWeight: 650, color: 'var(--text-h)', marginBottom: 6 }}>
-                    Diagnostic
-                  </div>
-                  <div style={{ whiteSpace: 'pre-wrap' }}>{t.diagnosis || '—'}</div>
-                  <div className="hr" />
-                  <div style={{ fontWeight: 650, color: 'var(--text-h)', marginBottom: 6 }}>
-                    Traitement
-                  </div>
-                  <div style={{ whiteSpace: 'pre-wrap' }}>{t.treatment || '—'}</div>
+                  <div className="mb-1.5 font-[650] text-fg">Diagnostic</div>
+                  <div className="whitespace-pre-wrap">{t.diagnosis || '—'}</div>
+                  <div className="my-4 border-t border-border" />
+                  <div className="mb-1.5 font-[650] text-fg">Traitement</div>
+                  <div className="whitespace-pre-wrap">{t.treatment || '—'}</div>
                   {t.prescriptionText ? (
                     <>
-                      <div className="hr" />
-                      <div style={{ fontWeight: 650, color: 'var(--text-h)', marginBottom: 6 }}>
-                        Ordonnance
-                      </div>
-                      <div style={{ whiteSpace: 'pre-wrap' }}>{t.prescriptionText}</div>
+                      <div className="my-4 border-t border-border" />
+                      <div className="mb-1.5 font-[650] text-fg">Ordonnance</div>
+                      <div className="whitespace-pre-wrap">{t.prescriptionText}</div>
                     </>
                   ) : null}
                   {t.notes ? (
                     <>
-                      <div className="hr" />
-                      <div style={{ fontWeight: 650, color: 'var(--text-h)', marginBottom: 6 }}>
-                        Notes
-                      </div>
-                      <div style={{ whiteSpace: 'pre-wrap' }}>{t.notes}</div>
+                      <div className="my-4 border-t border-border" />
+                      <div className="mb-1.5 font-[650] text-fg">Notes</div>
+                      <div className="whitespace-pre-wrap">{t.notes}</div>
                     </>
                   ) : null}
                 </div>
               ))
             ) : (
-              <div className="muted">Aucune entrée pour le moment.</div>
+              <div className="text-[13px] text-muted">Aucune entrée pour le moment.</div>
             )}
           </div>
 
-          <div className="card">
-            <div style={{ fontWeight: 650, color: 'var(--text-h)', marginBottom: 10 }}>
-              QR consultation temporaire
-            </div>
+          <div className="rounded-[10px] border border-border bg-transparent p-4">
+            <div className="mb-2.5 font-[650] text-fg">QR consultation temporaire</div>
 
-            <div className="grid2" style={{ marginBottom: 12 }}>
-              <div className="field">
-                <div className="label">Durée (minutes)</div>
+            <div className="mb-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+              <div className="flex flex-col gap-1.5">
+                <div className="text-[13px] text-muted">Durée (minutes)</div>
                 <input
-                  className="input"
+                  className="rounded-lg border border-border bg-transparent px-2.5 py-2.5 font-[inherit] text-inherit"
                   type="number"
                   value={expiresInMinutes}
                   min={1}
@@ -188,10 +174,10 @@ export default function PatientPage() {
                   onChange={(e) => setExpiresInMinutes(Number(e.target.value))}
                 />
               </div>
-              <div className="field">
-                <div className="label">URL accessible depuis le téléphone</div>
+              <div className="flex flex-col gap-1.5">
+                <div className="text-[13px] text-muted">URL accessible depuis le téléphone</div>
                 <input
-                  className="input"
+                  className="rounded-lg border border-border bg-transparent px-2.5 py-2.5 font-[inherit] text-inherit"
                   value={shareBaseUrl}
                   onChange={(e) => setShareBaseUrlState(e.target.value)}
                   placeholder="http://192.168.x.x:5173"
@@ -199,34 +185,56 @@ export default function PatientPage() {
               </div>
             </div>
 
-            {qrError ? <div className="alert" style={{ marginBottom: 12 }}>{qrError}</div> : null}
+            {qrError ? (
+              <div className="mb-3 rounded-[10px] border border-accent-border bg-accent-bg p-3 text-fg">
+                {qrError}
+              </div>
+            ) : null}
 
-            <button className="button" type="button" onClick={onGenerateQr} disabled={qrBusy}>
+            <button
+              className="cursor-pointer rounded-full bg-accent px-6 py-2.5 text-white transition-colors hover:border-accent-border hover:bg-accent-bg disabled:cursor-not-allowed disabled:opacity-60"
+              type="button"
+              onClick={onGenerateQr}
+              disabled={qrBusy}
+            >
               {qrBusy ? 'Génération...' : 'Générer le QR'}
             </button>
 
             {tokenExpiresAt ? (
-              <div className="muted" style={{ marginTop: 10 }}>
+              <div className="mt-2.5 text-[13px] text-muted">
                 Token valable jusqu’au : {new Date(tokenExpiresAt).toLocaleString()}
               </div>
             ) : null}
 
             {qrDataUrl ? (
-              <div style={{ marginTop: 14 }}>
-                <div className="qrRow">
-                  <img className="qrImg" src={qrDataUrl} alt="QR code consultation" />
-                  <div style={{ minWidth: 220 }}>
-                    <div style={{ fontWeight: 650, color: 'var(--text-h)', marginBottom: 8 }}>
-                      Lien de consultation
+              <div className="mt-3.5">
+                <div className="flex flex-wrap w-full justify-center items-start gap-4">
+                  <img
+                    className="h-60 w-60 border border-border bg-white"
+                    src={qrDataUrl}
+                    alt="QR code consultation"
+                  />
+                  <div className="min-w-[220px]">
+                    <div className="mb-2 font-[650] text-fg">Lien de consultation</div>
+                    <div className="mb-2.5 text-[13px] text-muted wrap-break-word">
+                      <code className="rounded-md bg-code-bg px-1.5 py-0.5 font-mono text-[13px] text-fg">
+                        {shareLink}
+                      </code>
                     </div>
-                    <div className="muted" style={{ marginBottom: 10, wordBreak: 'break-word' }}>
-                      <code>{shareLink}</code>
-                    </div>
-                    <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                      <button className="button" type="button" onClick={onCopyLink}>
+                    <div className="flex flex-wrap gap-2.5">
+                      <button
+                        className="cursor-pointer rounded-lg border border-border bg-transparent px-3 py-2.5 text-fg transition-colors hover:border-accent-border hover:bg-accent-bg disabled:cursor-not-allowed disabled:opacity-60"
+                        type="button"
+                        onClick={onCopyLink}
+                      >
                         Copier le lien
                       </button>
-                      <a className="link" href={shareLink || '#'} target="_blank" rel="noreferrer">
+                      <a
+                        className="inline-flex items-center justify-center rounded-lg border border-border bg-transparent px-3 py-2.5 text-fg no-underline transition-colors hover:border-accent-border hover:bg-accent-bg"
+                        href={shareLink || '#'}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         Ouvrir
                       </a>
                     </div>
@@ -240,4 +248,3 @@ export default function PatientPage() {
     </div>
   )
 }
-
